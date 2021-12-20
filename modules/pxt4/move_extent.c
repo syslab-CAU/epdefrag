@@ -651,7 +651,7 @@ move_extent_all_page(struct file *o_filp, struct inode *donor_inode,
 		wait_on_page_writeback(pagepp[idx_pagepp]);
 		if (!pagepp[idx_pagepp]) {
 			idx_pagepp++;  // to simplify the code, even error happends idx still point to next free slot
-			goto unlock_pages;  // TODO need other cleaning part, like stop_journal
+			goto unlock_pages;
 		}
 		idx_pagepp++;
 

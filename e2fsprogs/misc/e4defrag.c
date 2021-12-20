@@ -1389,7 +1389,8 @@ static int call_defrag_internal(int fd, int donor_fd, const char *file,
 
 static int call_defrag(int fd, int donor_fd, const char *file,
 					   const struct stat64 *buf, struct fiemap_extent_list *ext_list_head)
-{int i=0;
+{
+	int i=0;
 	loff_t	start = 0;
 	unsigned int	page_num;
 	unsigned char	*vec = NULL;
@@ -1731,8 +1732,6 @@ check_improvement:
 		//extents_after_defrag += file_frags_start;
 		__sync_fetch_and_add(&extents_after_defrag, frag_files_after_defrag);
 
-		// debug
-		//printf("%s does not need defragmentation\n", file);
 		goto out;
 	}
 	/* Defrag the file */
@@ -1851,7 +1850,6 @@ int main_internal(int argc, char *argv[])
 	current_uid = getuid();
 
 	/* Main process */
-	/* zgy: there can be several cml arugments, do defragmentation on them one by one */
 	for (i = optind; i < argc; i++) {
 		succeed_cnt = 0;
 		regular_count = 0;
@@ -1977,7 +1975,7 @@ int main_internal(int argc, char *argv[])
 		}
 
 		// debug
-		printf("zgy: before arg_type checking\n");
+		//printf("zgy: before arg_type checking\n");
 
 		switch (arg_type) {
 
@@ -2159,11 +2157,6 @@ int main_internal(int argc, char *argv[])
 #define THREAD_NUM 16
 				pthread_t p_thread[THREAD_NUM];
 				int thr_id[THREAD_NUM];
-				//int count_mypthread = 0;
-				//DIR *dirptr;
-				//struct dirent *entry;
-				//struct stat64 *buf3;
-				//char *rp;
 
 				f_cnt = 0;
 				info_idx = 0;
@@ -2175,13 +2168,6 @@ int main_internal(int argc, char *argv[])
 				 * It walks through the file tree and gives the absolute file path and corresponding stat to callback
 				 */
 				nftw64(dir_name, get_file_info, FTW_OPEN_FD, flags);
-
-				// debug
-				// printf("zgy: before create threads\n");
-				// int i = 0;
-				// for (i = 0; i < 10; i++) {
-				// 	printf("File path: %s\n", target_infos[i].f_path);
-				// }
 
 				int j;
 				int thread_idx = 0;
