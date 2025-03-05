@@ -1,6 +1,6 @@
 # An Efficient and Parallel File Defragment Scheme for SSDs
 
-Guangyu Zhu, Sangjin Lee, Yongseok Son, In Proceedings of 36th ACM/SIGAPP
+Guangyu Zhu, Jeongeun Lee, Yongseok Son, In Proceedings of 36th ACM/SIGAPP
 Symposium on Applied Computing (SAC'22)
 
 We implemented our scheme based e4defrag. There are user space part and kernel
